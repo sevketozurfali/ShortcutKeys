@@ -19,13 +19,18 @@ combination_of_custom = {
 current=set()
 
 def on_press(key):
-
-    current.add(key)
-    if frozenset(current) in combination_of_custom:
-        combination_of_custom[frozenset(current)]()
+    try:
+        current.add(key)
+        if frozenset(current) in combination_of_custom:
+            combination_of_custom[frozenset(current)]()
+    except Exception as ex:
+        print("Exception(press) : ", ex)
 
 def on_release(key):
-    current.remove(key)
+    try:
+        current.remove(key)
+    except Exception as ex:
+        print("Exception(release) : ", ex)
 
 with Listener(on_press = on_press, on_release = on_release) as listener:
     try:
